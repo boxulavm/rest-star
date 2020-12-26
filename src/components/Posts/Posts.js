@@ -28,11 +28,9 @@ const Posts = () => {
     return (
         <div>
         <h3>Posts</h3>
-        <ul className="list-group my-2">
             {!loading && posts.length === 0 ? (<p>No posts!</p>) : (
                 posts.map(post => <PostItem key={post.id} post={post} /> )
             )}
-        </ul>
        </div>
     )
 }
