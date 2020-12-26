@@ -3,26 +3,36 @@ import './App.css';
 import Header from './components/layout/Header'
 import Posts from './components/Posts/Posts'
 import Modal from './components/layout/Modal'
+import { Provider } from 'react-redux'
+import store from './store'
+
 const App = () => {
 
-  const [modalOpen, setModalOpen] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
   const openAddPostModal = () => {
     setModalType('Add');
-    setModalOpen(1);
+    setModalOpen(true);
   }
 
   const closeModal = () => {
-    setModalOpen(0)
+    setModalOpen(false)
+  }
+
+  const openUpdateModal = () => {
+    setModalType('Update');
+    setModalOpen(true);
   }
 
   return (
+    <Provider store={store}>
       <div className="container py-3 mt-4 mb-1 bg-secondary">
         <Header openModal={openAddPostModal} />
-        <Posts />
+        <Posts openUpdateModal={openUpdateModal} />
         {modalOpen && <Modal closeModal={closeModal} modalType={modalType} /> }
       </div>
+    </Provider>
   );
 }
 

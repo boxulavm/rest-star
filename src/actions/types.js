@@ -1,0 +1,8 @@
+export const GET_POSTS = 'GET_POSTS'
+export const SET_LOADING = 'SET_LOADING'
+export const POSTS_ERROR = 'POSTS_ERROR'
+export const ADD_POST = 'ADD_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const SELECTED_POST = 'SELECTED_POST'
+export const CLEAR_SELECTED_POST = 'CLEAR_SELECTED_POST'

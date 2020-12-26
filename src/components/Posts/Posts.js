@@ -1,27 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
+import { connect } from 'react-redux'
 import Spinner from '../layout/Spinner'
 import PostItem from '../Posts/PostItem'
+import { getPosts } from '../../actions/postsActions'
 
-const Posts = () => {
-
-    const [posts,setPosts] = useState([])
-    const [loading,setLoading] = useState(false)
+const Posts = ({ post: { posts, loading }, getPosts, openUpdateModal }) => {
 
     useEffect(() => {
       getPosts();
+      // eslint-disable-next-line
     }, [])
 
-    const getPosts = async () => {
-        setLoading(true)
-
-        const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-        const data = await res.json()
-
-        setPosts(data.slice(-10))
-        setLoading(false)
-    }
-
-    if(loading){
+    if(loading || !posts){
         return <Spinner />
     }
 
@@ -29,10 +19,14 @@ const Posts = () => {
         <div>
         <h3>Posts</h3>
             {!loading && posts.length === 0 ? (<p>No posts!</p>) : (
-                posts.map(post => <PostItem key={post.id} post={post} /> )
+                posts.map(post => <PostItem openUpdateModal={openUpdateModal} key={post.id} post={post} /> )
             )}
        </div>
     )
 }
 
-export default Posts
+const mapStateToProps = state => ({
+    post: state.post
+})
+
+export default connect(mapStateToProps, { getPosts })(Posts)
